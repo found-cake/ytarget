@@ -93,6 +93,10 @@ object YTarget {
             for (y in minY..maxY) {
                 for (z in centerZ - CLEAR_RADIUS..centerZ + CLEAR_RADIUS) {
                     val block = world.getBlockAt(x, y, z)
+                    if (block.type == Material.LADDER) {
+                        block.type = Material.AIR
+                        continue
+                    }
                     val top = block.collisionShape.boundingBoxes.maxOfOrNull { it.maxY } ?: continue
                     if (top < 1.0) block.type = Material.AIR
                 }
